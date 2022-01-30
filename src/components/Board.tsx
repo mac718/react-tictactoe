@@ -10,7 +10,7 @@ const Board: React.FC = () => {
   ]);
   const [computerMoves, setComputerMoves]: [number[], Function] = useState([]);
 
-  let cells: JSX.Element[] = [];
+  let cells: ReactElement[] = [];
 
   const humanMovedHandler = (cellNumber: number) => {
     let open = openCells.filter((cell) => cell !== cellNumber);
@@ -36,25 +36,14 @@ const Board: React.FC = () => {
   }, [humanMoved, computerMove]);
 
   for (let i = 0; i < 9; i++) {
-    if (computerMoves.includes(i)) {
-      cells.push(
-        <Cell
-          key={i}
-          cellNumber={i}
-          moved={humanMovedHandler}
-          computerSelected={true}
-        />
-      );
-    } else {
-      cells.push(
-        <Cell
-          key={i}
-          cellNumber={i}
-          moved={humanMovedHandler}
-          computerSelected={false}
-        />
-      );
-    }
+    cells.push(
+      <Cell
+        key={i}
+        cellNumber={i}
+        moved={humanMovedHandler}
+        computerSelected={computerMoves.includes(i) ? true : false}
+      />
+    );
   }
 
   console.log(openCells);

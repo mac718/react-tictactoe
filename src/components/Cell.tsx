@@ -19,10 +19,12 @@ const Cell: React.FC<CellProps> = (props: CellProps) => {
   } else {
     classes = styles["empty-cell"];
   }
+
   const cellClickHandler = (): void => {
     setSelected(true);
     props.moved(props.cellNumber);
   };
+
   return (
     <div className={classes} onClick={cellClickHandler}>
       {selected && "X"}
