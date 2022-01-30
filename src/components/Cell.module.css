@@ -1,0 +1,41 @@
+.human-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  max-height: 100px;
+  max-width: 100px;
+  color: blue;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.computer-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  max-height: 100px;
+  max-width: 100px;
+  color: red;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.empty-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  max-height: 100px;
+  max-width: 100px;
+}

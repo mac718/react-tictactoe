@@ -1,0 +1,9 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  max-width: 300px;
+  height: 300px;
+}
