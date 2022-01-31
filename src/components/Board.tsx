@@ -90,6 +90,7 @@ const Board: React.FC = () => {
     let cellStatusCopy = cellStatus.slice(0);
     cellStatusCopy[cell] = "O";
     let winner = checkForWinner(cellStatusCopy);
+    setCellStatus(cellStatusCopy);
     if (winner) {
       setShowModal(true);
       return;
@@ -110,12 +111,13 @@ const Board: React.FC = () => {
   }, [humanMoved, computerMove]);
 
   for (let i = 0; i < 9; i++) {
+    console.log(cellStatus);
     cells.push(
       <Cell
         key={i}
         cellNumber={i}
         moved={humanMovedHandler}
-        computerSelected={computerMoves.includes(i) ? true : false}
+        computerSelected={cellStatus[i] === "O" ? true : false}
       />
     );
   }
