@@ -12,4 +12,5 @@
   position: fixed;
   top: 20vh;
   color: white;
+  z-index: 30;
 }

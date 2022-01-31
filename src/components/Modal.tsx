@@ -1,11 +1,11 @@
 import styles from "./Modal.module.css";
 
 interface BackdropProps {
-  onClose: () => {};
+  onClose: () => void;
 }
 
 interface ModalProps {
-  onClose: () => {};
+  onClose: () => void;
   children: any;
 }
 
