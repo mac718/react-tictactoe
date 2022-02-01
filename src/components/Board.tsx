@@ -12,19 +12,15 @@ import Modal from "./Modal";
 
 const Board: React.FC = () => {
   let firstLoad = useRef(false);
-  const [humanMoved, setHumanMoved]: [boolean, Function] = useState(false);
-  const [cellStatus, setCellStatus]: [(string | null)[], Function] = useState(
-    new Array(9).fill(null, 0)
-  );
-  const [openCells, setOpenCells]: [number[], Function] = useState([
-    0, 1, 2, 3, 4, 5, 6, 7, 8,
-  ]);
-  const [computerMoves, setComputerMoves]: [number[], Function] = useState([]);
-  const [showModal, setShowModal]: [boolean, Function] = useState(false);
+  const [humanMoved, setHumanMoved] = useState(false);
+  const [cellStatus, setCellStatus] = useState(new Array(9).fill(null, 0));
+  const [openCells, setOpenCells] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState("");
 
   let cells: ReactElement[] = [];
 
-  const WINNING_CONDITIONS: number[][] = useMemo(
+  const WINNING_CONDITIONS = useMemo(
     () => [
       [0, 1, 2],
       [3, 4, 5],
@@ -38,44 +34,63 @@ const Board: React.FC = () => {
     []
   );
 
-  const checkForWinner = useCallback((board: (null | string)[]) => {
-    for (let idx = 0; idx < WINNING_CONDITIONS.length; idx += 1) {
-      let [index0, index1, index2] = [
-        WINNING_CONDITIONS[idx][0],
-        WINNING_CONDITIONS[idx][1],
-        WINNING_CONDITIONS[idx][2],
-      ];
-      console.log(board[index0], board[index1], board[index2]);
+  const checkForWinner = useCallback(
+    (board: (null | string)[]) => {
+      for (let idx = 0; idx < WINNING_CONDITIONS.length; idx += 1) {
+        let [index0, index1, index2] = [
+          WINNING_CONDITIONS[idx][0],
+          WINNING_CONDITIONS[idx][1],
+          WINNING_CONDITIONS[idx][2],
+        ];
 
-      if (
-        [index0, index1, index2].every((index) => {
-          return board[index] === "X";
-        })
-      ) {
-        return "human";
-      } else if (
-        [index0, index1, index2].every((index) => {
-          return board[index] === "O";
-        })
-      ) {
-        return "computer";
+        if (
+          [index0, index1, index2].every((index) => {
+            return board[index] === "X";
+          })
+        ) {
+          return "human";
+        } else if (
+          [index0, index1, index2].every((index) => {
+            return board[index] === "O";
+          })
+        ) {
+          return "computer";
+        }
       }
+      return null;
+    },
+    [WINNING_CONDITIONS]
+  );
+
+  const displayWinner = (winner: string) => {
+    switch (winner) {
+      case "human":
+        return "You win!";
+      case "computer":
+        return "Computer wins :(";
+      case "tie":
+        return "It's a tie!";
+      default:
+        return "?";
     }
-    return false;
-  }, []);
+  };
 
   const humanMovedHandler = (cellNumber: number) => {
     let open = openCells.filter((cell) => cell !== cellNumber);
     if (open.length === 0) setShowModal(true);
     setOpenCells(open);
+
     let cellStatusCopy = cellStatus.slice(0);
     cellStatusCopy[cellNumber] = "X";
+
     let winner = checkForWinner(cellStatusCopy);
-    console.log("winner", winner);
     if (winner) {
+      let resultMessage = displayWinner(winner);
+      setMessage(resultMessage);
       setShowModal(true);
       return;
     }
+
     setCellStatus(cellStatusCopy);
     setHumanMoved(true);
   };
@@ -84,17 +99,23 @@ const Board: React.FC = () => {
     let index = Math.floor(Math.random() * openCells.length);
     let cell = openCells[index];
 
-    //setComputerMoves([...computerMoves, cell]);
     let open = openCells.filter((cellNumber) => cellNumber !== cell);
+
     if (open.length === 0) setShowModal(true);
+
     let cellStatusCopy = cellStatus.slice(0);
     cellStatusCopy[cell] = "O";
+
     let winner = checkForWinner(cellStatusCopy);
     setCellStatus(cellStatusCopy);
+
     if (winner) {
+      let resultMessage = displayWinner(winner);
+      setMessage(resultMessage);
       setShowModal(true);
       return;
     }
+
     setOpenCells(open);
   }, [openCells, cellStatus, checkForWinner]);
 
@@ -111,7 +132,6 @@ const Board: React.FC = () => {
   }, [humanMoved, computerMove]);
 
   for (let i = 0; i < 9; i++) {
-    console.log(cellStatus);
     cells.push(
       <Cell
         key={i}
@@ -124,7 +144,11 @@ const Board: React.FC = () => {
 
   return (
     <>
-      {showModal && <Modal onClose={closeModalHandler}>Hi</Modal>}
+      {showModal && (
+        <Modal onClose={closeModalHandler} message={message}>
+          Game Over
+        </Modal>
+      )}
       <div className={styles.board}>{cells}</div>
     </>
   );

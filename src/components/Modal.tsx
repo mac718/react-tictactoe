@@ -6,7 +6,8 @@ interface BackdropProps {
 
 interface ModalProps {
   onClose: () => void;
-  children: any;
+  message: string;
+  children: React.ReactNode;
 }
 
 const Modal: React.FC<ModalProps> = (props: ModalProps) => {
@@ -14,8 +15,13 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
     return <div className={styles.backdrop} onClick={props.onClose}></div>;
   };
 
-  const ModalOverlay: React.FC = (props) => {
-    return <div className={styles.modal}>{props.children}</div>;
+  const ModalOverlay: React.FC = () => {
+    return (
+      <div className={styles.modal}>
+        {props.message}
+        {props.children}
+      </div>
+    );
   };
   return (
     <>

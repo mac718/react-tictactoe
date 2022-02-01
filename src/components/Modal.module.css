@@ -11,6 +11,11 @@
 .modal {
   position: fixed;
   top: 20vh;
+  width: 100%;
   color: white;
+  font-size: 2rem;
   z-index: 30;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
