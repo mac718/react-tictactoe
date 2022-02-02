@@ -5,7 +5,6 @@ interface CellProps {
   moved: (key: number) => void;
   mark: string | null;
   cellNumber: number;
-  computerSelected: boolean;
 }
 
 const Cell: React.FC<CellProps> = (props: CellProps) => {
@@ -13,9 +12,9 @@ const Cell: React.FC<CellProps> = (props: CellProps) => {
 
   let classes;
 
-  if (selected) {
+  if (props.mark === "X") {
     classes = styles["human-cell"];
-  } else if (props.computerSelected) {
+  } else if (props.mark === "O") {
     classes = styles["computer-cell"];
   } else {
     classes = styles["empty-cell"];

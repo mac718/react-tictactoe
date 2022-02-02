@@ -86,6 +86,7 @@ const Board: React.FC = () => {
     let winner = checkForWinner(cellStatusCopy);
     if (winner) {
       let resultMessage = displayWinner(winner);
+      setCellStatus(cellStatusCopy);
       setMessage(resultMessage);
       setShowModal(true);
       return;
