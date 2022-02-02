@@ -3,6 +3,7 @@ import styles from "./Cell.module.css";
 
 interface CellProps {
   moved: (key: number) => void;
+  mark: string | null;
   cellNumber: number;
   computerSelected: boolean;
 }
@@ -27,8 +28,7 @@ const Cell: React.FC<CellProps> = (props: CellProps) => {
 
   return (
     <div className={classes} onClick={cellClickHandler}>
-      {selected && "X"}
-      {props.computerSelected && "O"}
+      {props.mark}
     </div>
   );
 };

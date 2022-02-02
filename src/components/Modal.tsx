@@ -23,6 +23,7 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
       </div>
     );
   };
+
   return (
     <>
       <BackDrop onClose={props.onClose} />

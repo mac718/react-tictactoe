@@ -138,15 +138,23 @@ const Board: React.FC = () => {
         cellNumber={i}
         moved={humanMovedHandler}
         computerSelected={cellStatus[i] === "O" ? true : false}
+        mark={cellStatus[i]}
       />
     );
   }
+
+  const playAgainHandler = () => {
+    setCellStatus(new Array(9).fill(null, 0));
+    setOpenCells([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+    setShowModal(false);
+  };
 
   return (
     <>
       {showModal && (
         <Modal onClose={closeModalHandler} message={message}>
-          Game Over
+          <span onClick={playAgainHandler}>Play again?</span>
+          Game Over.
         </Modal>
       )}
       <div className={styles.board}>{cells}</div>
