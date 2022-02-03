@@ -157,8 +157,7 @@ const Board: React.FC = () => {
     <>
       {showModal && (
         <Modal onClose={closeModalHandler} message={message}>
-          <span onClick={playAgainHandler}>Play again?</span>
-          Game Over.
+          <span onClick={playAgainHandler}>{message} Play again?</span>
         </Modal>
       )}
       <div className={styles.board}>{cells}</div>

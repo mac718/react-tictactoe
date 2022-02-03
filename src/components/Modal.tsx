@@ -16,12 +16,7 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
   };
 
   const ModalOverlay: React.FC = () => {
-    return (
-      <div className={styles.modal}>
-        {props.message}
-        {props.children}
-      </div>
-    );
+    return <div className={styles.modal}>{props.children}</div>;
   };
 
   return (
