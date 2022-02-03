@@ -81,7 +81,11 @@ const Board: React.FC = () => {
     setOpenCells(open);
 
     let cellStatusCopy = cellStatus.slice(0);
-    cellStatusCopy[cellNumber] = "X";
+    if (cellStatusCopy[cellNumber] === "X") {
+      return;
+    } else {
+      cellStatusCopy[cellNumber] = "X";
+    }
 
     let winner = checkForWinner(cellStatusCopy);
     if (winner) {
@@ -138,7 +142,6 @@ const Board: React.FC = () => {
         key={i}
         cellNumber={i}
         moved={humanMovedHandler}
-        computerSelected={cellStatus[i] === "O" ? true : false}
         mark={cellStatus[i]}
       />
     );
