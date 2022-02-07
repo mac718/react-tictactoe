@@ -1,4 +1,4 @@
-import { screen, render } from "@testing-library/react";
+import { screen, render, queryAllByText } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Board from "./Board";
 
@@ -42,5 +42,19 @@ describe("Board", () => {
     const clickedComputerCell = screen.queryAllByText("O");
 
     expect(clickedComputerCell.length).toBe(1);
+  });
+
+  it("does not allow a user to select a cell already occupied by an 'O'", () => {
+    const cell = document.getElementsByClassName("empty-cell")[0];
+
+    userEvent.click(cell);
+
+    const computerSelected = screen.getByText("O");
+
+    userEvent.click(computerSelected);
+
+    const playerSelected = screen.queryAllByText("X");
+
+    expect(playerSelected.length).toBe(1);
   });
 });

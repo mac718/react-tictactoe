@@ -81,7 +81,7 @@ const Board: React.FC = () => {
     setOpenCells(open);
 
     let cellStatusCopy = cellStatus.slice(0);
-    if (cellStatusCopy[cellNumber] === "X") {
+    if (cellStatusCopy[cellNumber] !== null) {
       return;
     } else {
       cellStatusCopy[cellNumber] = "X";
