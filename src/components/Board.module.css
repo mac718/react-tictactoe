@@ -2,10 +2,20 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+  border-top: 1px solid white;
+  border-left: 1px solid white;
   max-width: 300px;
   height: 300px;
   margin: auto;
   margin-top: 20vh;
+}
+
+.reset {
+  width: 6rem;
+  height: 2.5rem;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
 }

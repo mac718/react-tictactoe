@@ -1,0 +1,14 @@
+.heading {
+  color: white;
+  animation: fade-in 1s ease-in 1;
+  font-family: "Courier New", Courier, monospace;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

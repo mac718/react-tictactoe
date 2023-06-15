@@ -42,6 +42,7 @@ const Board: React.FC = () => {
           WINNING_CONDITIONS[idx][1],
           WINNING_CONDITIONS[idx][2],
         ];
+        console.log(index0, index1, index2);
 
         if (
           [index0, index1, index2].every((index) => {
@@ -77,7 +78,10 @@ const Board: React.FC = () => {
 
   const humanMovedHandler = (cellNumber: number) => {
     let open = openCells.filter((cell) => cell !== cellNumber);
-    if (open.length === 0) setShowModal(true);
+    if (open.length === 0) {
+      setMessage("It's a tie!");
+      setShowModal(true);
+    }
     setOpenCells(open);
 
     let cellStatusCopy = cellStatus.slice(0);
@@ -106,7 +110,10 @@ const Board: React.FC = () => {
 
     let open = openCells.filter((cellNumber) => cellNumber !== cell);
 
-    if (open.length === 0) setShowModal(true);
+    if (open.length === 0) {
+      setMessage("It's a tie!");
+      setShowModal(true);
+    }
 
     let cellStatusCopy = cellStatus.slice(0);
     cellStatusCopy[cell] = "O";
@@ -157,7 +164,12 @@ const Board: React.FC = () => {
     <>
       {showModal && (
         <Modal onClose={closeModalHandler} message={message}>
-          <span onClick={playAgainHandler}>{message} Play again?</span>
+          <div>{message}</div>
+          <div>
+            <button className={styles.reset} onClick={playAgainHandler}>
+              Reset Board
+            </button>
+          </div>
         </Modal>
       )}
       <div className={styles.board}>{cells}</div>
